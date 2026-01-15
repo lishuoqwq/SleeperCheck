@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ls:*)",
+      "Bash(gradle --version)",
+      "Bash(git rev-parse:*)",
+      "Bash(git init)",
+      "Bash(git add:*)"
+    ]
+  }
+}
