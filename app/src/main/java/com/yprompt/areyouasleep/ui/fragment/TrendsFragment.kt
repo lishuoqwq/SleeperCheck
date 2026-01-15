@@ -61,6 +61,8 @@ class TrendsFragment : Fragment() {
 
             val records = db.dailyRecordDao().getRecordsForPeriod(startDate, endDate).first()
 
+            binding.chartView.setData(records)
+
             binding.layoutHistoryContainer.removeAllViews()
 
             if (records.isEmpty()) {

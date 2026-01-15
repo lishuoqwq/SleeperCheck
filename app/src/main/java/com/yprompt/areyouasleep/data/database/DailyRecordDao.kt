@@ -25,4 +25,10 @@ interface DailyRecordDao {
     
     @Query("SELECT * FROM daily_records ORDER BY date DESC")
     fun getAllRecords(): Flow<List<DailyRecord>>
+
+    @Query("SELECT * FROM daily_records ORDER BY date ASC")
+    suspend fun getAllRecordsSync(): List<DailyRecord>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertAll(records: List<DailyRecord>)
 }
