@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/navigation_sleep"
+        android:icon="@drawable/ic_tab_sleep"
+        android:title="睡眠" />
+    <item
+        android:id="@+id/navigation_trends"
+        android:icon="@drawable/ic_tab_trends"
+        android:title="趋势" />
+    <item
+        android:id="@+id/navigation_mine"
+        android:icon="@drawable/ic_tab_mine"
+        android:title="我的" />
+</menu>

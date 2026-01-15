@@ -12,8 +12,8 @@ android {
         applicationId = "com.yprompt.areyouasleep"
         minSdk = 26 // Android 8.0+ for UsageStatsManager
         targetSdk = 34
-        versionCode = 2
-        versionName = "1.1.0"
+        versionCode = 3
+        versionName = "1.2.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         
@@ -40,6 +40,12 @@ android {
     }
     buildFeatures {
         viewBinding = true
+    }
+
+    applicationVariants.all {
+        outputs.all {
+            (this as com.android.build.gradle.internal.api.BaseVariantOutputImpl).outputFileName = "sleep.apk"
+        }
     }
 }
 
