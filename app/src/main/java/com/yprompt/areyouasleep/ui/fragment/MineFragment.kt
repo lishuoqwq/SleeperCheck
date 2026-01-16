@@ -104,7 +104,15 @@ class MineFragment : Fragment() {
             val stat = db.monthlyStatDao().getStatByMonth(month).first()
             val consecutive = stat?.maxConsecutiveCheckIns ?: 0
             binding.tvConsecutiveDays.text = consecutive.toString()
+
+            updateAchievements(consecutive)
         }
+    }
+
+    private fun updateAchievements(consecutiveDays: Int) {
+        binding.tvAchievement1.visibility = if (consecutiveDays >= 3) View.VISIBLE else View.GONE
+        binding.tvAchievement2.visibility = if (consecutiveDays >= 7) View.VISIBLE else View.GONE
+        binding.tvAchievement3.visibility = if (consecutiveDays >= 30) View.VISIBLE else View.GONE
     }
 
     private fun exportData(uri: Uri) {

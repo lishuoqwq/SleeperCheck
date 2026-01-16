@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <style name="Theme.AreYouSleep" parent="Theme.Material3.Light.NoActionBar">
-        <item name="colorPrimary">#007AFF</item>
-        <item name="colorPrimaryVariant">#0051D5</item>
-        <item name="colorOnPrimary">#FFFFFF</item>
-        <item name="colorSecondary">#5AC8FA</item>
-        <item name="colorSecondaryVariant">#32ADE6</item>
-        <item name="colorOnSecondary">#FFFFFF</item>
-        <item name="android:windowBackground">#F2F2F7</item>
-        <item name="colorSurface">#FFFFFF</item>
-        <item name="android:fontFamily">sans-serif-light</item>
+        <item name="colorPrimary">@color/primary_blue</item>
+        <item name="colorPrimaryVariant">@color/light_blue</item>
+        <item name="colorOnPrimary">@color/card_white</item>
+        <item name="colorSecondary">@color/light_blue</item>
+        <item name="colorSecondaryVariant">@color/purple</item>
+        <item name="colorOnSecondary">@color/card_white</item>
+        <item name="android:windowBackground">@color/background_gray</item>
+        <item name="colorSurface">@color/card_white</item>
+        <item name="android:fontFamily">sans-serif</item>
     </style>
 </resources>

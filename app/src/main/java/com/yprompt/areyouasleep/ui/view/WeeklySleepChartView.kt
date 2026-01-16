@@ -3,7 +3,9 @@ package com.yprompt.areyouasleep.ui.view
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Color
+import android.graphics.LinearGradient
 import android.graphics.Paint
+import android.graphics.Shader
 import android.util.AttributeSet
 import android.view.View
 import com.yprompt.areyouasleep.data.model.DailyRecord
@@ -16,8 +18,8 @@ class WeeklySleepChartView @JvmOverloads constructor(
 
     private val barPaint = Paint(Paint.ANTI_ALIAS_FLAG)
     private val textPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-        color = Color.GRAY
-        textSize = 30f
+        color = Color.parseColor("#8E8E93")
+        textSize = 32f
         textAlign = Paint.Align.CENTER
     }
 
@@ -49,13 +51,27 @@ class WeeklySleepChartView @JvmOverloads constructor(
         data.forEachIndexed { index, (date, isStayUpLate) ->
             val left = spacing + index * (barWidth + spacing)
             val right = left + barWidth
-
-            barPaint.color = if (isStayUpLate) Color.parseColor("#FF3B30") else Color.parseColor("#34C759")
-
             val top = height - maxBarHeight - 40f
             val bottom = height - 40f
 
-            canvas.drawRoundRect(left, top, right, bottom, 12f, 12f, barPaint)
+            val gradient = if (isStayUpLate) {
+                LinearGradient(
+                    left, top, left, bottom,
+                    Color.parseColor("#FF6B6B"),
+                    Color.parseColor("#FF3B30"),
+                    Shader.TileMode.CLAMP
+                )
+            } else {
+                LinearGradient(
+                    left, top, left, bottom,
+                    Color.parseColor("#5AC8FA"),
+                    Color.parseColor("#007AFF"),
+                    Shader.TileMode.CLAMP
+                )
+            }
+
+            barPaint.shader = gradient
+            canvas.drawRoundRect(left, top, right, bottom, 16f, 16f, barPaint)
             canvas.drawText(date, left + barWidth / 2, height - 10f, textPaint)
         }
     }

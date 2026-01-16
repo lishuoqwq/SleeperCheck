@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 主色调 -->
+    <color name="primary_blue">#007AFF</color>
+    <color name="light_blue">#5AC8FA</color>
+    <color name="purple">#5856D6</color>
+    <color name="pink">#FF2D55</color>
+
+    <!-- 背景色 -->
+    <color name="background_gray">#F2F2F7</color>
+    <color name="card_white">#FFFFFF</color>
+
+    <!-- 文字颜色 -->
+    <color name="text_primary">#000000</color>
+    <color name="text_secondary">#3C3C43</color>
+    <color name="text_tertiary">#8E8E93</color>
+
+    <!-- 分割线 -->
+    <color name="divider">#D1D1D6</color>
+
+    <!-- 渐变色 -->
+    <color name="gradient_start">#5AC8FA</color>
+    <color name="gradient_middle">#007AFF</color>
+    <color name="gradient_end">#5856D6</color>
+</resources>

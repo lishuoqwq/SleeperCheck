@@ -1,14 +1,21 @@
 package com.yprompt.areyouasleep.ui.fragment
 
+import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
+import android.os.VibrationEffect
+import android.os.Vibrator
+import android.os.VibratorManager
 import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import com.yprompt.areyouasleep.R
 import com.yprompt.areyouasleep.data.database.AppDatabase
 import com.yprompt.areyouasleep.data.model.DailyRecord
 import com.yprompt.areyouasleep.data.preferences.UserPreferencesRepository
@@ -62,6 +69,8 @@ class HomeFragment : Fragment() {
         val dateFormat = SimpleDateFormat("M月d日 EEEE", Locale.CHINA)
         binding.tvDate.text = dateFormat.format(today.time)
 
+        updateGreeting()
+
         binding.btnCheckInCircle.setOnClickListener {
             performCheckIn()
         }
@@ -69,6 +78,9 @@ class HomeFragment : Fragment() {
         binding.tvPermissionHint.setOnClickListener {
             requestUsageStatsPermission()
         }
+
+        loadWeeklyStats()
+        updateHealthTip()
     }
 
     private fun loadTodayData() {
@@ -82,7 +94,9 @@ class HomeFragment : Fragment() {
                 binding.tvGreeting.text = "今晚准备几点睡？"
                 binding.tvStatusSubtitle.text = "点击按钮打卡，记录美好睡眠"
                 binding.btnCheckInCircle.isEnabled = true
-                binding.btnCheckInCircle.setCardBackgroundColor(0xFF007AFF.toInt())
+                binding.btnCheckInCircle.setCardBackgroundColor(
+                    ContextCompat.getColor(requireContext(), R.color.primary_blue)
+                )
                 binding.tvBtnText.text = "睡觉打卡"
                 analyzeYesterdaySleep()
             }
@@ -155,7 +169,14 @@ class HomeFragment : Fragment() {
             statsManager.updateMonthlyStats(today)
 
             updateUIForCheckedIn(record)
-            Toast.makeText(context, "打卡成功！", Toast.LENGTH_SHORT).show()
+
+            binding.btnCheckInCircle.animate()
+                .scaleX(1.2f).scaleY(1.2f).setDuration(200)
+                .withEndAction {
+                    binding.btnCheckInCircle.animate().scaleX(1f).scaleY(1f).setDuration(200).start()
+                }.start()
+
+            Toast.makeText(context, "🎉 打卡成功！", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -170,6 +191,46 @@ class HomeFragment : Fragment() {
     private fun requestUsageStatsPermission() {
         val intent = Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS)
         startActivity(intent)
+    }
+
+    private fun updateGreeting() {
+        val hour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)
+        val greeting = when (hour) {
+            in 5..11 -> "凌晨好！机长 ☀️"
+            in 12..17 -> "下午好！机长 🌤️"
+            in 18..23 -> "晚上好！机长 🌙"
+            else -> "深夜了！机长 🌛"
+        }
+        binding.tvDate.text = greeting
+    }
+
+    private fun loadWeeklyStats() {
+        lifecycleScope.launch {
+            val calendar = Calendar.getInstance()
+            val endDate = SimpleDateFormat("yyyy-MM-dd", Locale.US).format(calendar.time)
+            calendar.add(Calendar.DAY_OF_YEAR, -6)
+            val startDate = SimpleDateFormat("yyyy-MM-dd", Locale.US).format(calendar.time)
+
+            val records = db.dailyRecordDao().getRecordsForPeriod(startDate, endDate).first()
+            val totalCount = records.count { it.didCheckIn }
+            val goodCount = records.count { it.didCheckIn && !it.isStayUpLate }
+
+            binding.tvWeekCount.text = totalCount.toString()
+            binding.tvWeekGood.text = goodCount.toString()
+        }
+    }
+
+    private fun updateHealthTip() {
+        val tips = listOf(
+            "今天已经起飞1次，心情不错吧～✨",
+            "保持规律作息，身体会感谢你的！💪",
+            "早睡早起，精神百倍！🌟",
+            "睡前放下手机，睡眠质量更好哦～📱",
+            "坚持打卡，养成好习惯！🎯",
+            "充足的睡眠是健康的基石～💤",
+            "今天也要早点休息哦！🌙"
+        )
+        binding.tvHealthTip.text = tips.random()
     }
 
     override fun onDestroyView() {
