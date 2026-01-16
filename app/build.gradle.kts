@@ -12,8 +12,8 @@ android {
         applicationId = "com.yprompt.areyouasleep"
         minSdk = 26 // Android 8.0+ for UsageStatsManager
         targetSdk = 34
-        versionCode = 4
-        versionName = "1.3.0"
+        versionCode = 1
+        versionName = "1.0.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         

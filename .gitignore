@@ -47,3 +47,6 @@ Thumbs.db
 # User-specific
 *.swp
 *~
+
+# Claude Code
+.claude/
