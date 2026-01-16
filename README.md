@@ -1,4 +1,4 @@
-# "睡了吗" APP
+# SleeperCheck - 睡眠习惯记录 APP
 
 <p align="center">
   <img src="https://img.shields.io/badge/Android-8.0+-green.svg" alt="Android 8.0+">
@@ -8,7 +8,7 @@
 
 ## 📱 项目简介
 
-"睡了吗"是一款极致简洁、本地优先且低功耗的睡眠习惯记录 APP。通过回顾式查询系统使用统计，帮助用户记录和改善睡眠习惯。
+SleeperCheck 是一款极致简洁、本地优先且低功耗的睡眠习惯记录 APP。通过回顾式查询系统使用统计，帮助用户记录和改善睡眠习惯。
 
 ## ✨ 已实现功能
 
